@@ -4,7 +4,7 @@ interface Props {
   blackSquare: boolean
 }
 
-export const Armor = styled.h1(({blackSquare}: Props) => {
+export const Armor = styled.span(({blackSquare}: Props) => {
   const shadow = blackSquare ? 'white' : 'black'
   return {
     margin: 0,

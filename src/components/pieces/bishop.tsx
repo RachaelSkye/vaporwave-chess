@@ -4,5 +4,5 @@ interface Props {
   blackSquare: boolean
 }
 export function Bishop({blackSquare}: Props) {
-  return <Armor blackSquare={blackSquare}>&#x2657;</Armor>;
+  return <Armor blackSquare={blackSquare} draggable={true}>&#x2657;</Armor>;
 }

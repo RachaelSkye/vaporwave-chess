@@ -6,12 +6,6 @@ import { Coordinates, Livery } from '../../types';
 
 
 export class BoardController {
-  //the board will instantiate pieces and generate squares. square generation also generates coordinates. initial piece placement will be passed down to squares and pieces.
-
-  //we really don't need a board instance, do we? well, i guess the board could be instantiated in the tsx file and we could separate board logic from the board face that way.
-
-  //a board has squares and boundary detection. can be a subscription that's initialized once the table has a piece on it.
-
 
   //for purposes of configuring pieces i think the board should have a piece property that comes from the piece class
   public pieces: Piece[] = []
@@ -26,8 +20,9 @@ export class BoardController {
   private currentPlayer: Livery | null = null
 
   constructor(){
-    this.arrangePieces()
     this.arrangeSquares()
+    this.arrangePieces()
+
     
   }
 
@@ -77,16 +72,10 @@ export class BoardController {
     const black = (x + y) % 2 === 1;
     const color: 'black' | 'white' = black ? 'black' : 'white';
     const coordinates: Coordinates = [x,y]
-    const piece = this.pieces.find(piece => {
-      const isOccupied = piece.coordinates[0] === coordinates[0] && piece.coordinates[1] === coordinates[1]
-      if(isOccupied){
-        return piece
-      }else return undefined
-      })
+
     const config = {
       color: color,
       coordinates: coordinates,
-      piece: piece
     }
     return new Square(config)
   }
