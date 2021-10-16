@@ -1,6 +1,6 @@
 // import { tap } from "rxjs";
-import { Piece } from "../pieces/piece";
-import { Coordinates } from "../types";
+import { Piece } from "../pieces/piece-controller";
+import { Coordinates } from "../../types";
 
 export interface SquareConfig {
   color: 'black' | 'white';

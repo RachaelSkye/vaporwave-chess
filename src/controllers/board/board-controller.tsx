@@ -1,6 +1,6 @@
-import {Piece, PieceConfig, Pawn} from '../pieces/piece';
-import { Square } from '../square/square';
-import { Coordinates, Livery } from '../types';
+import {Piece, PieceConfig, Pawn} from '../pieces/piece-controller';
+import { Square } from '../square/square-controller';
+import { Coordinates, Livery } from '../../types';
 // import { Observable } from "rxjs";
 // import {tap} from 'rxjs/operators'
 

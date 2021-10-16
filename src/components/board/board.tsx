@@ -1,5 +1,5 @@
 import React from 'react';
-import {BoardController} from '../../board/board';
+import {BoardController} from '../../controllers/board/board-controller';
 import { v4 as uuidv4 } from 'uuid';
 import {Piece} from '../pieces/piece'
 
