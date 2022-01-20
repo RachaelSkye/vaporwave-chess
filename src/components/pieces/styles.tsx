@@ -10,6 +10,6 @@ export const Armor = styled.span(({blackSquare}: Props) => {
     margin: 0,
     fontSize: "3.25vw",
     ":hover": { cursor: "pointer", textShadow: `1px 1px 2px ${shadow}`},
-    ':active': {textShadow: `1px 1px 2px ${shadow}` }
+    ':active': {textShadow: `1px 1px 2px ${shadow}` },
   };
 });

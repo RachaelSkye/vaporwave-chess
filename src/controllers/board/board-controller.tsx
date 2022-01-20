@@ -1,4 +1,4 @@
-import {Piece, PieceConfig, Pawn} from '../pieces/piece-controller';
+import {Piece, PieceConfig, Pawn, IPiece, IPawn} from '../pieces/piece-controller';
 import { Square } from '../square/square-controller';
 import { Coordinates, Livery } from '../../types';
 // import { Observable } from "rxjs";
@@ -8,9 +8,10 @@ import { Coordinates, Livery } from '../../types';
 export class BoardController {
 
   //for purposes of configuring pieces i think the board should have a piece property that comes from the piece class
-  public pieces: Piece[] = []
+  public pieces: (IPiece | IPawn)[] = []
   public squares: Square[] = []
-
+  
+  
   //we can assign the piece that's moving as the piece in play and update these values accordingly. once the piece is placed and the square has the current position information, we reset their state to null.
   public pieceInPlay?: Piece
   private lastPosition: Coordinates | null = null
@@ -22,7 +23,7 @@ export class BoardController {
   constructor(){
     this.arrangeSquares()
     this.arrangePieces()
-
+    
     
   }
 
@@ -100,7 +101,36 @@ export class BoardController {
 
   }
 
+  private isPawn(piece: Pawn | Piece): piece is Pawn {
+    return (piece as Pawn).isFirstMove !== undefined
+  }
+
+  //checks for a valid move and updates the coordinates property. actual logic for these will come from the game file
+public pickUp(event: any) {
+  //when we pick it up we store the coordinates and id
+  // this.pieces.filter(piece => {
 
 
+
+
+
+  // })
+}
+
+public setDown() {
+  //when we set it down we grab the id and update the square coordinates to match
+  //actually, we only want to update the first move property on pawns once they're set down. if they get put back to starting position we dont want to update that property.
+
+
+  // if(this.isPawn(piece)){
+  //   //want to match ids and update first move property
+  // }
+
+}
+
+//a piece is dragged from the board and dropped on the table
+public capture() {
+
+}
 
 }

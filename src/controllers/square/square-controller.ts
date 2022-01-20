@@ -5,6 +5,10 @@ export interface SquareConfig {
   coordinates: Coordinates;
 }
 
+export interface ISquare {
+  color: 'black' | 'white',
+  coordinates: Coordinates
+}
 
 export class Square {
   public color: 'black' | 'white';
