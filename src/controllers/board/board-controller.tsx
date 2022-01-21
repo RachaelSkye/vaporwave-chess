@@ -1,6 +1,7 @@
-import {Piece, PieceConfig, Pawn, IPiece, IPawn} from '../pieces/piece-controller';
+import { IPiece, IPawn} from '../../types';
 import { Square } from '../square/square-controller';
 import { Coordinates, Livery } from '../../types';
+import { Piece, Pawn, PieceConfig } from '../pieces/piece-controller';
 // import { Observable } from "rxjs";
 // import {tap} from 'rxjs/operators'
 
@@ -13,7 +14,7 @@ export class BoardController {
   
   
   //we can assign the piece that's moving as the piece in play and update these values accordingly. once the piece is placed and the square has the current position information, we reset their state to null.
-  public pieceInPlay?: Piece
+  public pieceInPlay?: IPiece
   private lastPosition: Coordinates | null = null
   private currentPosition: Coordinates | null = null
 
@@ -34,6 +35,7 @@ export class BoardController {
         index: idx,
         name: name,
         coordinates: coordinates,
+        captured: false
       }
     }
     this.pieces.push(new Piece(config("hotpink", '', "queen", [4, 7])))

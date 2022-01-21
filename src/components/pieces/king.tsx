@@ -1,6 +1,6 @@
 import React from "react";
 import {Armor} from './styles'
-import { IPawn, IPiece } from "../../controllers/pieces/piece-controller";
+import { IPawn, IPiece } from "../../types";
 
 interface Props {
   blackSquare: boolean
@@ -8,13 +8,6 @@ interface Props {
 
 }
 export function King({blackSquare, piece}: Props) {
-  const id = piece ? piece.id : ''
-  function handleDragStart(e: React.DragEvent<HTMLSpanElement>) {
-    e.preventDefault();
 
-    e.dataTransfer.setData('id', id)
-    console.log('drag started')
-  }
-
-  return <Armor blackSquare={blackSquare} onDragStart={handleDragStart}>&#x2654;</Armor>
+  return <Armor blackSquare={blackSquare} >&#x2654;</Armor>
 }

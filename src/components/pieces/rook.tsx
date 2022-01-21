@@ -1,6 +1,6 @@
 import React from "react";
 import {Armor} from './styles'
-import { IPawn, IPiece } from "../../controllers/pieces/piece-controller";
+import { IPawn, IPiece } from "../../types";
 
 interface Props {
   blackSquare: boolean
@@ -8,7 +8,5 @@ interface Props {
 
 }
 export function Rook({blackSquare, piece}: Props) {
-  const id = piece ? piece.id : ''
-
-  return <Armor blackSquare={blackSquare} onDragStart={(e) => e.dataTransfer.setData('id', id)}>&#x2656;</Armor>;
+  return <Armor blackSquare={blackSquare} >&#x2656;</Armor>;
 }

@@ -1,55 +1,32 @@
-import React, {useEffect, useState} from 'react'
-import { IPawn, IPiece } from '../../controllers/pieces/piece-controller'
-import { ISquare } from '../../controllers/square/square-controller';
+import React from 'react'
 import {PieceConfig} from '../pieces/piece-config'
-import {Coordinates, Livery} from '../../types'
+import {Livery, ISquare, IPawn, IPiece, Coordinates} from '../../types'
 import styled from 'styled-components';
 
 interface Props {
   square: ISquare,
-  pieces?: (IPawn | IPiece)[]
+  handleDrop: (event: React.DragEvent<HTMLSpanElement>, squareCoordinates: Coordinates) => void,
+  handleDragStart: (event: React.DragEvent<HTMLSpanElement>, id?: string) => void
+  piece?: (IPawn | IPiece)
 }
 
-export function Square({square, pieces}: Props) {
-  const [pieceToRender, setPieceToRender] = useState<IPawn | IPiece | undefined>(undefined)
-
-  useEffect(() => {
-    if(!pieces) return
-     const piece = pieces.find((piece) => {
-        const xMatch = square.coordinates[0] === piece.coordinates[0]
-        const yMatch = square.coordinates[1] === piece.coordinates[1]
-        return xMatch && yMatch ? piece : undefined
-      })
-    setPieceToRender(piece)
-  }, [pieces, square.coordinates, pieceToRender])
-
-  function handleDragOver(e: React.DragEvent<HTMLDivElement>) {
+export function Square({square, handleDrop, handleDragStart, piece}: Props) {
+  function handleDragOver(e: React.DragEvent<HTMLSpanElement>) {
     e.preventDefault();
     console.log('dragging')
   };
-  
-  function handleDrop(e: React.DragEvent<HTMLDivElement>, square: ISquare) {
-    if(!pieces) return
 
-    const id = e.dataTransfer.getData("id");
-    const piece = pieces.find(piece => piece.id === id)
-    if(piece){
-      const index = pieces.indexOf(piece)
-      pieces[index].coordinates = square.coordinates
-      const _piece = pieces.find(piece => piece.id === id)
-
-      setPieceToRender(_piece)
-    } 
-  }
- 
   return (
     <Boundary
     color={square.color} 
-    livery={pieceToRender?.livery}
+    livery={piece?.livery}
     onDragOver={(e) => handleDragOver(e)} 
-    onDrop={(e) => handleDrop(e, square)}
+    onDrop={(e) => handleDrop(e, square.coordinates)}
     >
-      {pieceToRender ? <PieceConfig blackSquare={square.color === 'black'} piece={pieceToRender}/> : null}
+      {piece ? 
+      <span draggable={true} onDragStart={(e) => handleDragStart(e, piece?.id)}>
+        <PieceConfig blackSquare={square.color === 'black'} piece={piece} />
+      </span> : null}
     </Boundary>
   )
 }

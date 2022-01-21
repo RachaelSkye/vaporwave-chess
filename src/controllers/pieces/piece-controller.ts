@@ -1,4 +1,4 @@
-import { Observable, of } from "rxjs";
+import { BehaviorSubject, Observable, of } from "rxjs";
 import {Coordinates, Livery } from '../../types'
 
 export interface PieceConfig {
@@ -6,31 +6,19 @@ export interface PieceConfig {
   index: number | '';
   name: string;
   coordinates: Coordinates;
-}
-
-export interface IPiece {
-  coordinates: Coordinates
-captured: Observable<boolean>
-id: string;
-livery: Livery
-name: string
-}
-
-export interface IPawn extends Piece {
-  firstMove: Observable<boolean>
-  promoted: Observable<boolean>
-
+  captured: boolean
 }
 
 export class Piece {
 public coordinates: Coordinates
-public captured: Observable<boolean> = of(false);
+public captured: BehaviorSubject<boolean>
 public id: string;
 public livery: Livery
 public name: string
 
 constructor(config: PieceConfig) {
   this.coordinates = config.coordinates
+  this.captured = new BehaviorSubject(config.captured)
   this.id = config.livery + config.name + config.index
   this.name = config.name
   this.livery = config.livery
