@@ -5,15 +5,15 @@ import styled from 'styled-components';
 
 interface Props {
   square: ISquare,
-  handleDrop: (event: React.DragEvent<HTMLSpanElement>, squareCoordinates: Coordinates) => void,
+  handleDrop: (squareCoordinates: Coordinates) => void,
   handleDragStart: (event: React.DragEvent<HTMLSpanElement>, id?: string) => void
   piece?: (IPawn | IPiece)
 }
 
 export function Square({square, handleDrop, handleDragStart, piece}: Props) {
+  
   function handleDragOver(e: React.DragEvent<HTMLSpanElement>) {
     e.preventDefault();
-    console.log('dragging')
   };
 
   return (
@@ -21,7 +21,7 @@ export function Square({square, handleDrop, handleDragStart, piece}: Props) {
     color={square.color} 
     livery={piece?.livery}
     onDragOver={(e) => handleDragOver(e)} 
-    onDrop={(e) => handleDrop(e, square.coordinates)}
+    onDrop={() => handleDrop(square.coordinates)}
     >
       {piece ? 
       <span draggable={true} onDragStart={(e) => handleDragStart(e, piece?.id)}>
