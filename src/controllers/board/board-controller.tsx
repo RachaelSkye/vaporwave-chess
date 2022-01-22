@@ -24,8 +24,6 @@ export class BoardController {
   constructor(){
     this.arrangeSquares()
     this.arrangePieces()
-    
-    
   }
 
   private arrangePieces() {
@@ -103,12 +101,9 @@ export class BoardController {
 
   }
 
-  private isPawn(piece: Pawn | Piece): piece is Pawn {
-    return (piece as Pawn).isFirstMove !== undefined
-  }
 
   //checks for a valid move and updates the coordinates property. actual logic for these will come from the game file
-public pickUp(event: any) {
+  public pickUp(event: any) {
   //when we pick it up we store the coordinates and id
   // this.pieces.filter(piece => {
 
