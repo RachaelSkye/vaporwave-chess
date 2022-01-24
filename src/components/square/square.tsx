@@ -1,6 +1,6 @@
 import React from 'react'
-import {PieceConfig} from '../pieces/piece-config'
-import {Livery, ISquare, IPawn, IPiece, Coordinates} from '../../types'
+import {Piece} from '../pieces/piece'
+import {Livery, ISquare, IPawn, IPiece, Coordinates} from '../../types/types'
 import styled from 'styled-components';
 
 interface Props {
@@ -25,7 +25,7 @@ export function Square({square, handleDrop, handleDragStart, piece}: Props) {
     >
       {piece ? 
       <span draggable={true} onDragStart={(e) => handleDragStart(e, piece?.id)}>
-        <PieceConfig blackSquare={square.color === 'black'} piece={piece} />
+        <Piece blackSquare={square.color === 'black'} piece={piece} />
       </span> : null}
     </Boundary>
   )

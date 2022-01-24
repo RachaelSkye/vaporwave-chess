@@ -1,21 +1,25 @@
 import React, {useEffect, useState} from 'react';
-import {BoardController} from '../../controllers/board/board-controller';
 import { v4 as uuidv4 } from 'uuid';
 import {Square} from '../square/square';
-import { Coordinates, IPawn, IPiece } from '../../types';
+import { Coordinates, IPawn, IPiece } from '../../types/types';
+import styled from 'styled-components';
+import { canMove } from '../../controllers/game/game-controller';
+import { arrangePieces } from '../../controllers/pieces/arrange-pieces';
+import { arrangeSquares } from '../../controllers/squares/arrange-squares';
+
 
 export function Board() {
-  const board = new BoardController();
-  const squaresArray = board.squares;
-  const piecesArray = board.pieces;
-  const [updatedArray, setUpdatedArray] = useState(piecesArray)
+  const squaresArray = arrangeSquares()
+  const pieces = arrangePieces()
+
+  const [updatedPieces, setUpdatedPieces] = useState(pieces)
   const [updatedSquares, setUpdatedSquares] = useState<JSX.Element[] | undefined>(undefined)
   const [movingPiece, updateMovingPiece] = useState<IPawn | IPiece | undefined>(undefined)
 
   function handleDragStart(e: React.DragEvent<HTMLSpanElement>, id?: string) {
     if(!id) return
     e.dataTransfer.setData('id', id)
-    const piece = updatedArray.find(piece => piece.id === id)
+    const piece = updatedPieces.find(piece => piece.id === id)
     updateMovingPiece(piece)
   }
 
@@ -23,17 +27,20 @@ export function Board() {
 
       function handleDrop(squareCoordinates: Coordinates) {
         if(movingPiece){
-          movingPiece.coordinates[0] = squareCoordinates[0]
-          movingPiece.coordinates[1] = squareCoordinates[1]
-          const pieceToReplace = updatedArray.find(piece => piece.id === movingPiece.id)
-          const indexToReplace = updatedArray.indexOf(pieceToReplace!)
-          updatedArray[indexToReplace] = movingPiece
-          setUpdatedArray(updatedArray)
+          const moveCheck = canMove(squareCoordinates, movingPiece)
+          if(moveCheck){
+            movingPiece.coordinates[0] = squareCoordinates[0]
+            movingPiece.coordinates[1] = squareCoordinates[1]
+            const pieceToReplace = updatedPieces.find(piece => piece.id === movingPiece.id)
+            const indexToReplace = updatedPieces.indexOf(pieceToReplace!)
+            updatedPieces[indexToReplace] = movingPiece
+            setUpdatedPieces(updatedPieces)
+          }
           updateMovingPiece(undefined)
         } 
       }
       const squares = squaresArray.map(square => {
-        const piece = updatedArray.find(piece => {
+        const piece = updatedPieces.find(piece => {
           const xMatch = piece.coordinates[0] === square.coordinates[0]
           const yMatch = piece.coordinates[1] === square.coordinates[1]
     
@@ -51,7 +58,19 @@ export function Board() {
       //Adding the dependencies eslint was asking for caused constant re-rendering.
       //TODO: state management is not great >_< 
       // eslint-disable-next-line
-    }, [updatedArray, movingPiece])
+    }, [updatedPieces, movingPiece])
 
-  return <div style={{display: 'flex', flexWrap: 'wrap', width: '50vw', height: '50vh', backgroundColor: 'blue', position: 'absolute', bottom: '25%', left: '25%', border: '1px solid gray'}}>{updatedSquares}</div>
+  return <Boundary>{updatedSquares}</Boundary>
 }
+
+const Boundary = styled.div`
+display: flex; 
+flex-wrap: wrap; 
+width: 50vw; 
+height: 50vh; 
+background-color: blue; 
+position: absolute; 
+bottom: 25%; 
+left: 25%; 
+border: 1px solid gray
+`
