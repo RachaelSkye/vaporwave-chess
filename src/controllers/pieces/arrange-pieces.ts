@@ -17,7 +17,8 @@ function createPiece({name, livery, coordinates, idx, firstMove, promoted}: Conf
         id: livery + name,
         name,
         coordinates,
-        captured: false
+        captured: false,
+        moving: false
       }
     case 'pawn':
       return {
@@ -27,7 +28,8 @@ function createPiece({name, livery, coordinates, idx, firstMove, promoted}: Conf
         coordinates,
         captured: false,
         firstMove: firstMove,
-        promoted: promoted
+        promoted: promoted,
+        moving: false
       }
     default:
       return {
@@ -35,7 +37,8 @@ function createPiece({name, livery, coordinates, idx, firstMove, promoted}: Conf
         id: livery + name + idx,
         name,
         coordinates,
-        captured: false
+        captured: false,
+        moving: false
       }
 
   }

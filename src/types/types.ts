@@ -6,7 +6,8 @@ export interface IPiece {
   captured: boolean,
   id: string,
   livery: Livery,
-  name: string
+  name: string,
+  moving: boolean
 }
 
 export interface IPawn extends IPiece {

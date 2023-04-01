@@ -3,11 +3,13 @@ import { v4 as uuidv4 } from 'uuid';
 import {Square} from '../square/square';
 import { Coordinates, IPawn, IPiece } from '../../types/types';
 import styled from 'styled-components';
-import { canMove } from '../../controllers/game/game-controller';
+import { canMove } from '../../controllers/game/legal-move-enforcer';
 import { arrangePieces } from '../../controllers/pieces/arrange-pieces';
 import { arrangeSquares } from '../../controllers/squares/arrange-squares';
 
 //TODO: pieces need to be able to live outside the board
+//how should that layout work? i feel like I would like to see off board pieces in a numeric display
+//and then to drag pieces back to the board i want a slide out drawer with the captured pieces in it
 export function Board() {
   const squaresArray = arrangeSquares()
   const pieces = arrangePieces()
@@ -16,25 +18,37 @@ export function Board() {
   const [updatedSquares, setUpdatedSquares] = useState<JSX.Element[] | undefined>(undefined)
   const [movingPiece, updateMovingPiece] = useState<IPawn | IPiece | undefined>(undefined)
 
-  function handleDragStart(e: React.DragEvent<HTMLSpanElement>, id?: string) {
+  function handleDragStart(event: React.DragEvent<HTMLSpanElement>, id?: string) {
     if(!id) return
-    e.dataTransfer.setData('id', id)
-    const piece = updatedPieces.find(piece => piece.id === id)
-    updateMovingPiece(piece)
+    event.dataTransfer.setData('id', id)
+    const piece = updatedPieces.find(piece => piece.id === id);
+    if(piece){
+      piece.moving = true
+    }
+    updateMovingPiece(piece);
+    //no idea why but this works to make the bg disappear on drag
+    //https://stackoverflow.com/questions/36379184/html5-draggable-hide-original-element
+    event.currentTarget.style.transition = "0.01s";
+    event.currentTarget.style.transform = "translateX(-9999px)";
+
   }
 
     useEffect(() => {
 
-      function handleDrop(squareCoordinates: Coordinates) {
+      function handleDrop(squareCoordinates: Coordinates, event: React.DragEvent<HTMLSpanElement>) {
         if(movingPiece){
-          const moveCheck = canMove(squareCoordinates, movingPiece)
-          if(moveCheck){
-            movingPiece.coordinates[0] = squareCoordinates[0]
-            movingPiece.coordinates[1] = squareCoordinates[1]
+          const passesMoveCheck = canMove(squareCoordinates, movingPiece);
+          if(passesMoveCheck){
+            movingPiece.coordinates = squareCoordinates;
+            movingPiece.moving = false
             const pieceToReplace = updatedPieces.find(piece => piece.id === movingPiece.id)
             const indexToReplace = updatedPieces.indexOf(pieceToReplace!)
             updatedPieces[indexToReplace] = movingPiece
+            console.log(movingPiece)
             setUpdatedPieces(updatedPieces)
+            event.currentTarget.style.transition = "";
+            event.currentTarget.style.transform = "";
+        
           }
           updateMovingPiece(undefined)
         } 
@@ -43,7 +57,6 @@ export function Board() {
         const piece = updatedPieces.find(piece => {
           const xMatch = piece.coordinates[0] === square.coordinates[0]
           const yMatch = piece.coordinates[1] === square.coordinates[1]
-    
           if(xMatch && yMatch){
             return piece
           } else return undefined
