@@ -7,7 +7,7 @@ import { canMove } from '../../controllers/game/game-controller';
 import { arrangePieces } from '../../controllers/pieces/arrange-pieces';
 import { arrangeSquares } from '../../controllers/squares/arrange-squares';
 
-
+//TODO: pieces need to be able to live outside the board
 export function Board() {
   const squaresArray = arrangeSquares()
   const pieces = arrangePieces()
@@ -50,14 +50,17 @@ export function Board() {
         })
         const key = uuidv4()
           return (
-            <Square key={key} piece={piece} square={square} handleDrop={handleDrop} handleDragStart={handleDragStart}/>
+            <Square 
+            key={key} 
+            piece={piece} 
+            square={square} 
+            handleDrop={handleDrop} 
+            handleDragStart={handleDragStart}/>
           )
         });
       setUpdatedSquares(squares)
 
-      //Adding the dependencies eslint was asking for caused constant re-rendering.
       //TODO: state management is not great >_< 
-      // eslint-disable-next-line
     }, [updatedPieces, movingPiece])
 
   return <Boundary>{updatedSquares}</Boundary>

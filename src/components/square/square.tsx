@@ -10,7 +10,7 @@ interface Props {
   piece?: (IPawn | IPiece)
 }
 
-export function Square({square, handleDrop, handleDragStart, piece}: Props) {
+export function Square({square, handleDrop, handleDragStart, piece,}: Props) {
   
   function handleDragOver(e: React.DragEvent<HTMLSpanElement>) {
     e.preventDefault();

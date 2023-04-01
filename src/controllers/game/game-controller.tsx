@@ -2,7 +2,6 @@ import { isPawn } from "../../types/type-guard";
 import { Coordinates, IPawn, IPiece } from "../../types/types";
 
 export function canMove(squareCoordinates: Coordinates, piece: (IPawn | IPiece) ) {
-  const id = piece.id
   const [fromX, fromY] = piece.coordinates;
   const [toX, toY] = squareCoordinates
   const dx = toX - fromX;
@@ -15,7 +14,7 @@ export function canMove(squareCoordinates: Coordinates, piece: (IPawn | IPiece) 
   const pawn = isPawn(piece) 
 
   if (pawn && !piece.promoted) {
-    if (id.includes("pink")) {
+    if (piece.livery === 'hotpink') {
       if (
         piece.firstMove &&
         isForwardMovePink &&
@@ -34,7 +33,7 @@ export function canMove(squareCoordinates: Coordinates, piece: (IPawn | IPiece) 
       } else {
         alert("Pink Queendom, restrain your pawn!");
       }
-    } else if (id.includes("cyan")) {
+    } else {
       if (
         piece.firstMove &&
         isForwardMoveCyan &&
@@ -54,33 +53,38 @@ export function canMove(squareCoordinates: Coordinates, piece: (IPawn | IPiece) 
         alert("Cyan Queendom, restrain your pawn!");
       }
     }
-  } else if (id.includes("knight")) {
-    if (slope === 2 || slope === 1 / 2) {
-      return true;
-    } else if (id.includes("knight")) {
-      alert("But ur literally a knight tho?");
-      return false;
+  } else {
+    switch (piece.name) {
+      case 'knight':
+        if (slope === 2 || slope === 1 / 2) {
+          return true;
+        } else {
+          alert("But ur literally a knight tho?");
+          return false;
+        }
+      case 'bishop':
+        if (slope === 1) {
+          return true;
+        } else {
+          alert("Wow a bishop tryna cheat smdh");
+          return false;
+        }
+      case 'rook':
+        if (dx === 0 || dy === 0) {
+          return true;
+        } else {
+          alert("wtf you doin R O O K?");
+          return false;
+        }
+      case 'king':
+        if (isSingleSpaceMove && (slope === 1 || dx === 0 || dy === 0)) {
+          return true;
+        } else {
+          alert("Queen, your king is drunk. Retrieve them!");
+          return false;
+        }
+      default:
+        return true
     }
-  } else if (id.includes("bishop")) {
-    if (slope === 1) {
-      return true;
-    } else if (id.includes("bishop")) {
-      alert("Wow a bishop tryna cheat smdh");
-      return false;
-    }
-  } else if (id.includes("rook")) {
-    if (dx === 0 || dy === 0) {
-      return true;
-    } else if (id.includes("rook")) {
-      alert("wtf you doin R O O K?");
-      return false;
-    }
-  } else if (id.includes("king")) {
-    if (isSingleSpaceMove && (slope === 1 || dx === 0 || dy === 0)) {
-      return true;
-    } else {
-      alert("Queen, your king is drunk. Retrieve them!");
-      return false;
-    }
-  } else return true;
+  }
 }

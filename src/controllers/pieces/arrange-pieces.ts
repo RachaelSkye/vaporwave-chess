@@ -15,16 +15,16 @@ function createPiece({name, livery, coordinates, idx, firstMove, promoted}: Conf
       return {
         livery: livery,
         id: livery + name,
-        name: name,
-        coordinates: coordinates,
+        name,
+        coordinates,
         captured: false
       }
     case 'pawn':
       return {
         livery: livery,
         id: livery + name + idx,
-        name: name,
-        coordinates: coordinates,
+        name,
+        coordinates,
         captured: false,
         firstMove: firstMove,
         promoted: promoted
@@ -33,8 +33,8 @@ function createPiece({name, livery, coordinates, idx, firstMove, promoted}: Conf
       return {
         livery: livery,
         id: livery + name + idx,
-        name: name,
-        coordinates: coordinates,
+        name,
+        coordinates,
         captured: false
       }
 
