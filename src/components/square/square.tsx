@@ -15,6 +15,7 @@ export function Square({square, handleDrop, handleDragStart, piece,}: Props) {
   function handleDragOver(e: React.DragEvent<HTMLSpanElement>) {
     e.preventDefault();
   };
+  const canDisplayInSquare = piece && !piece.captured && !piece.moving;
 
   return (
     <Boundary
@@ -23,7 +24,7 @@ export function Square({square, handleDrop, handleDragStart, piece,}: Props) {
     onDragOver={(e) => handleDragOver(e)} 
     onDrop={(e) => handleDrop(square.coordinates, e)}
     >
-      {piece && !piece.moving ? 
+      {canDisplayInSquare ? 
       <span draggable={true} onDragStart={(e) => handleDragStart(e, piece?.id)}>
         <Piece blackSquare={square.color === 'black'} piece={piece} />
       </span> : null}
@@ -39,8 +40,8 @@ interface BoundaryProps {
 const Boundary = styled.div(({color, livery}: BoundaryProps) => {
   return {
     backgroundColor: color, 
-    width: '6.25vw', 
-    height: '6.25vh', 
+    width: '11.25vw', 
+    height: '11.25vh', 
     zIndex: 20, 
     color: livery, 
     display: 'flex', 

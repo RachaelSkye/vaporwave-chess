@@ -30,25 +30,21 @@ export function Board() {
     //https://stackoverflow.com/questions/36379184/html5-draggable-hide-original-element
     event.currentTarget.style.transition = "0.01s";
     event.currentTarget.style.transform = "translateX(-9999px)";
-
   }
 
     useEffect(() => {
-
       function handleDrop(squareCoordinates: Coordinates, event: React.DragEvent<HTMLSpanElement>) {
         if(movingPiece){
+          movingPiece.moving = false
           const passesMoveCheck = canMove(squareCoordinates, movingPiece);
           if(passesMoveCheck){
             movingPiece.coordinates = squareCoordinates;
-            movingPiece.moving = false
             const pieceToReplace = updatedPieces.find(piece => piece.id === movingPiece.id)
             const indexToReplace = updatedPieces.indexOf(pieceToReplace!)
             updatedPieces[indexToReplace] = movingPiece
-            console.log(movingPiece)
             setUpdatedPieces(updatedPieces)
             event.currentTarget.style.transition = "";
             event.currentTarget.style.transform = "";
-        
           }
           updateMovingPiece(undefined)
         } 
@@ -82,11 +78,11 @@ export function Board() {
 const Boundary = styled.div`
 display: flex; 
 flex-wrap: wrap; 
-width: 50vw; 
-height: 50vh; 
+width: 90vw; 
+height: 90vh; 
 background-color: blue; 
 position: absolute; 
-bottom: 25%; 
-left: 25%; 
+bottom: 5%; 
+left: 5%; 
 border: 1px solid gray
 `
