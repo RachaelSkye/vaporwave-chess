@@ -1,22 +1,15 @@
 {
   "files": {
-    "main.css": "/vaporwave-chess/static/css/main.6dea0f05.chunk.css",
-    "main.js": "/vaporwave-chess/static/js/main.dd83e5f6.chunk.js",
-    "main.js.map": "/vaporwave-chess/static/js/main.dd83e5f6.chunk.js.map",
-    "runtime-main.js": "/vaporwave-chess/static/js/runtime-main.dd3eb895.js",
-    "runtime-main.js.map": "/vaporwave-chess/static/js/runtime-main.dd3eb895.js.map",
-    "static/js/2.ae8eec38.chunk.js": "/vaporwave-chess/static/js/2.ae8eec38.chunk.js",
-    "static/js/2.ae8eec38.chunk.js.map": "/vaporwave-chess/static/js/2.ae8eec38.chunk.js.map",
-    "static/js/3.c7a6e0e6.chunk.js": "/vaporwave-chess/static/js/3.c7a6e0e6.chunk.js",
-    "static/js/3.c7a6e0e6.chunk.js.map": "/vaporwave-chess/static/js/3.c7a6e0e6.chunk.js.map",
+    "main.css": "/vaporwave-chess/static/css/main.e6c13ad2.css",
+    "main.js": "/vaporwave-chess/static/js/main.2cf1a903.js",
+    "static/js/787.0fbc8860.chunk.js": "/vaporwave-chess/static/js/787.0fbc8860.chunk.js",
     "index.html": "/vaporwave-chess/index.html",
-    "static/css/main.6dea0f05.chunk.css.map": "/vaporwave-chess/static/css/main.6dea0f05.chunk.css.map",
-    "static/js/2.ae8eec38.chunk.js.LICENSE.txt": "/vaporwave-chess/static/js/2.ae8eec38.chunk.js.LICENSE.txt"
+    "main.e6c13ad2.css.map": "/vaporwave-chess/static/css/main.e6c13ad2.css.map",
+    "main.2cf1a903.js.map": "/vaporwave-chess/static/js/main.2cf1a903.js.map",
+    "787.0fbc8860.chunk.js.map": "/vaporwave-chess/static/js/787.0fbc8860.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.dd3eb895.js",
-    "static/js/2.ae8eec38.chunk.js",
-    "static/css/main.6dea0f05.chunk.css",
-    "static/js/main.dd83e5f6.chunk.js"
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.2cf1a903.js"
   ]
 }
