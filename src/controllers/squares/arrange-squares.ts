@@ -8,8 +8,8 @@ function renderSquare(i: number) {
   const coordinates: Coordinates = [x,y]
 
   const square = {
-    color: color,
-    coordinates: coordinates,
+    color,
+    coordinates,
   }
   return square
 }

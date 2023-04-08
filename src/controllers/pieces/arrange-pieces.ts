@@ -10,40 +10,28 @@ interface Config {
 }
 
 function createPiece({name, livery, coordinates, idx, firstMove, promoted}: Config): (IPiece | IPawn) {
-  switch (name) {
-    case ('king' || 'queen'):
-      return {
-        livery: livery,
-        id: livery + name,
-        name,
-        coordinates,
-        captured: false,
-        moving: false
-      }
-    case 'pawn':
-      return {
-        livery: livery,
-        id: livery + name + idx,
-        name,
-        coordinates,
-        captured: false,
-        firstMove: firstMove,
-        promoted: promoted,
-        moving: false
-      }
-    default:
-      return {
-        livery: livery,
-        id: livery + name + idx,
-        name,
-        coordinates,
-        captured: false,
-        moving: false
-      }
-
+  const basePiece = {
+    livery,
+    id: livery + name + idx,
+    name,
+    coordinates,
+    captured: false,
+    moving: false
   }
-
+ if(name === "pawn"){
+  return {
+    ...basePiece,
+      firstMove,
+      promoted,
+    }
+ } else {
+  return basePiece
+ }
 }
+
+
+//TODO: i think the thing here would be to use a uuid and pass the livery with the id as needed. 
+// then i think i could use mapping?
 
 export function arrangePieces(): (IPawn | IPiece)[] {
   const pieces = []

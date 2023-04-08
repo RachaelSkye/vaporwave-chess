@@ -8,7 +8,7 @@ export const Armor = styled.span(({blackSquare}: Props) => {
   const shadow = blackSquare ? 'white' : 'black'
   return {
     margin: 0,
-    fontSize: "6.5vw",
+    fontSize: "5vmax",
     ":hover": { cursor: "pointer", textShadow: `1px 1px 2px ${shadow}`, transform: '1.05'},
     ':active': {textShadow: `1px 1px 2px ${shadow}` },
   };
